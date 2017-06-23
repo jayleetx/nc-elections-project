@@ -16,10 +16,10 @@ library(forcats)
 ```
 
 ```{r, load data}
-if(!dir.exists("code/viz/temp")) dir.create("code/viz/temp")
-purl("wrangle/cps.Rmd", output = "code/viz/temp/cps.R") %>% source()
-purl("wrangle/nc.Rmd", output = "code/viz/temp/nc.R") %>% source()
-purl("code/tidy_cces.Rmd", output = "code/viz/temp/cces.R") %>% source()
+if(!dir.exists("code/temp")) dir.create("code/temp")
+purl("data-raw/wrangle/cps.Rmd", output = "code/temp/cps.R") %>% source()
+purl("data-raw/wrangle/nc.Rmd", output = "code/temp/nc.R") %>% source()
+purl("data-raw/wrangle/tidy_cces.Rmd", output = "code/temp/cces.R") %>% source()
 ```
 
 ```{r, nc server}

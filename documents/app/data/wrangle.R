@@ -8,13 +8,13 @@ library(knitr)
 set.seed(8193298)
 
 ## ------------------------------------------------------------------------
-nc_vhis <- read_tsv("../data/nc_voter/ncvhis_Statewide.txt") %>%
+nc_vhis <- read_tsv("../data-raw/nc_voter/ncvhis_Statewide.txt") %>%
   select(county_desc:voting_method, voted_party_desc:ncid) %>%
   mutate(election_lbl = mdy(election_lbl)) %>%
   filter(year(election_lbl) %in% c(2016, 2014, 2012)) %>%
   mutate(new_id = paste0(voter_reg_num, ncid))
 
-nc_voter <- read_tsv("../data/nc_voter/ncvoter_Statewide.txt") %>%
+nc_voter <- read_tsv("../data-raw/nc_voter/ncvoter_Statewide.txt") %>%
   filter(status_cd == "A" | status_cd == "S") %>%
   select(county_desc:voter_reg_num,
          zip_code,
@@ -140,7 +140,7 @@ rm(size)
 # rm(cps_sample)
 
 ## ------------------------------------------------------------------------
-cces_2012 <- read_tsv("../data/cces/CCES12_Common_VV.tab.tsv") %>%
+cces_2012 <- read_tsv("../data-raw/cces/CCES12_Common_VV.tab.tsv") %>%
   filter(inputstate == 37) %>%
   mutate(birthyr = paste(birthyr, "-01-01", sep = ""),
          age = as.numeric(as.duration(ymd(birthyr) %--% mdy("01-01-2012")), "years"),
@@ -172,7 +172,7 @@ cces_2012 <- read_tsv("../data/cces/CCES12_Common_VV.tab.tsv") %>%
   rename(voted = CC401, registered = votereg_post) %>% 
   select(age, race, gender, hispanic, registered, voted, weight_vv_post)
   
-cces_2014 <- read_tsv("../data/cces/CCES14_Common_Content_Validated.tab.tsv") %>%
+cces_2014 <- read_tsv("../data-raw/cces/CCES14_Common_Content_Validated.tab.tsv") %>%
   filter(inputstate == 37) %>% # 37 = North Carolina
   mutate(birthyr = paste(birthyr, "-01-01", sep = ""),
          age = as.numeric(as.duration(ymd(birthyr) %--% mdy("01-01-2014")), "years"),
@@ -204,7 +204,7 @@ cces_2014 <- read_tsv("../data/cces/CCES14_Common_Content_Validated.tab.tsv") %>
   ) %>% 
   select(age, race, gender, hispanic, registered, voted, weight)
 
-cces_2016 <- read_tsv("../data/cces/CCES2016_Common_FirstRelease.tab.tsv") %>%
+cces_2016 <- read_tsv("../data-raw/cces/CCES2016_Common_FirstRelease.tab.tsv") %>%
   filter(inputstate == 37) %>% # 37 = North Carolina
   mutate(gender = as.factor(recode(gender,
                                    `1` = "Male",
