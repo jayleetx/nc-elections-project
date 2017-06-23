@@ -12,7 +12,7 @@ opts_knit$set(root.dir = normalizePath("../"))
 ```{r load_data include = FALSE}
 knit("wrangle/cps.Rmd")
 knit("wrangle/nc_wrangle.Rmd")
-knit("tidy_cces/tidy_cces.Rmd")
+knit("code/tidy_cces.Rmd")
 ```
 
 ```{r cps}
