@@ -1,0 +1,7 @@
+How to create this project!
+
+1. Make sure working directory is set to nc-elections-project
+2. Run data-raw/nc_voter/get_data.sh in the shell.
+    - Make sure "wget" and "7zip" are installed locally. Homebrew is great for this.
+    - This data is massive! The voter file is 5GB. Space can be an issue.
+3. 
