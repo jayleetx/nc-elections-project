@@ -6,3 +6,7 @@ nc-elections-project.Rproj
 *.pdf
 *.RData
 viz/temp
+*.DS_Store
+*ncvhis_Statewide.txt
+*ncvhis_ncvoter_data_format.txt
+*ncvoter_Statewide.txt
