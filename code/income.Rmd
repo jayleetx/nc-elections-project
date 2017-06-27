@@ -10,9 +10,12 @@ opts_knit$set(root.dir = normalizePath("../"))
 ```
 
 ```{r load_data include = FALSE}
-knit("../data-raw/wrangle/cps.Rmd")
-knit("../data-raw/wrangle/nc_cloud.Rmd")
-knit("../data-raw/wrangle/tidy_cces.Rmd")
+if(!dir.exists("temp")) {
+  dir.create("temp")
+  purl("../data-raw/wrangle/cps.Rmd", output = "temp/cps.R") %>% source()
+  purl("../data-raw/wrangle/nc_cloud.Rmd", output = "temp/nc.R") %>% source()
+  purl("../data-raw/wrangle/tidy_cces.Rmd", output = "temp/cces.R") %>% source()
+}
 ```
 
 ```{r cps}
