@@ -15,11 +15,11 @@ library(forcats)
 ```
 
 ```{r, import_data}
-load("../cces/CCES12_Common_VV.RData")
+load("../data-raw/cces/CCES12_Common_VV.RData")
 
 cces_2012 <- x
 
-load("../cces/CCES14_Common_Content_Validated.RData")
+load("../data-raw/cces/CCES14_Common_Content_Validated.RData")
 
 cces_2014 <- x
 
