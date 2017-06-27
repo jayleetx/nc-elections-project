@@ -10,9 +10,9 @@ opts_knit$set(root.dir = normalizePath("../"))
 ```
 
 ```{r load_data include = FALSE}
-knit("data-raw/wrangle/cps.Rmd")
-knit("data-raw/wrangle/nc_wrangle.Rmd")
-knit("data-raw/wrangle/tidy_cces.Rmd")
+knit("../data-raw/wrangle/cps.Rmd")
+knit("../data-raw/wrangle/nc_cloud.Rmd")
+knit("../data-raw/wrangle/tidy_cces.Rmd")
 ```
 
 ```{r cps}
