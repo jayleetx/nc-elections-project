@@ -1,10 +1,9 @@
 .Rproj.user
 .Rhistory
-.RData
 .Ruserdata
 nc-elections-project.Rproj
 *.pdf
-*.RData
+.Rdata
 */temp/*
 *.DS_Store
 *ncvhis_Statewide.txt
