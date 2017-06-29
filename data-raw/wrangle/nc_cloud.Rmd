@@ -9,11 +9,11 @@ library(tidyverse)
 library(dbplyr)
 library(RPostgreSQL)
 
-my_db <- src_postgres("nc_elections",
-                      host = "ncelections.c7d0c8vzwwoc.us-west-2.rds.amazonaws.com", 
+my_db <- src_postgres("test_name",
+                      host = "ncelections.caocmmq9ap27.us-west-2.rds.amazonaws.com", 
                       port = 5432,
-                      user = "nc_elections",
-                      password = "nc_elections")
+                      user = "nc_username",
+                      password = "nc_password")
 nc_vhis <- tbl(my_db, "nc_vhis")
 nc_voter <- tbl(my_db, "nc_voter")
 ```
@@ -68,3 +68,6 @@ sum(temp$count) # Number of voters (6,914,248)
 sum(temp$count[-which(is.na(temp$voting_method))])/sum(temp$count) 
 ```
 
+```{r disconnect all}
+rm(list = ls())
+```
