@@ -58,16 +58,16 @@ nc_16 <- elligible_16 %>%
   left_join(voted_16, by = c("ncid" = "ncid"))
 # save this to the database for quick access?
 
-# How many people voted with each method
-temp <- nc_16 %>% group_by(voting_method) %>% summarise(count = n()) %>% collect()
+## How many people voted with each method
+#temp <- nc_16 %>% group_by(voting_method) %>% summarise(count = n()) %>% collect()
 
-sum(temp$count[-which(is.na(temp$voting_method))]) # Number of ballots (4,769,640)
-sum(temp$count) # Number of voters (6,914,248)
+#sum(temp$count[-which(is.na(temp$voting_method))]) # Number of ballots (4,769,640)
+#sum(temp$count) # Number of voters (6,914,248)
 
-# Voter turnout (68.9%)
-sum(temp$count[-which(is.na(temp$voting_method))])/sum(temp$count) 
+## Voter turnout (68.9%)
+#sum(temp$count[-which(is.na(temp$voting_method))])/sum(temp$count) 
 ```
 
 ```{r disconnect all}
-rm(list = ls())
+# rm(list = ls())
 ```
