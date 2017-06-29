@@ -8,19 +8,39 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(dbplyr)
 library(RPostgreSQL)
+library(lubridate)
 
-my_db <- src_postgres("test_name",
-                      host = "ncelections.caocmmq9ap27.us-west-2.rds.amazonaws.com", 
-                      port = 5432,
-                      user = "nc_username",
-                      password = "nc_password")
+require("RPostgreSQL")
+drv <- dbDriver("PostgreSQL")
+my_db <- dbConnect(drv, dbname = "test_name",
+                 host = "ncelections.caocmmq9ap27.us-west-2.rds.amazonaws.com",
+                 port = 5432,
+                 user = "nc_username", password = "nc_password")
 nc_vhis <- tbl(my_db, "nc_vhis")
 nc_voter <- tbl(my_db, "nc_voter")
 ```
 
 ```{r nc_wrangle}
+nc_vhis <- nc_vhis %>%
+  select(county_desc:voting_method, voted_party_desc:ncid) %>%
+  mutate(election_lbl = mdy(election_lbl)) %>%
+  filter(year(election_lbl) %in% c(2016, 2014, 2012)) %>%
+  group_by(election_desc) %>%
+  mutate(new_id = paste(voter_reg_num, ncid)) %>%
+  distinct(new_id, .keep_all = TRUE)
+
+nc_voter <- nc_voter %>%
+  filter(status_cd == "A") %>%
+  select(county_desc:voter_reg_number,
+         zip_code,
+         race_code:birth_age,
+         registr_dt:precinct_desc,
+         ncid) %>%
+  mutate(new_id = paste(voter_reg_number, ncid)) %>%
+  distinct(new_id, .keep_all = TRUE)
+
 nc <- nc_vhis %>%
-  left_join(nc_voter, by = c("ncid" = "ncid")) %>%
+  left_join(nc_voter, by = c("new_id")) %>%
   filter(status_cd == "A",
          voting_method != "ELIGIBLE DID NOT VOTE") %>%
   select(county_desc.x,
@@ -34,9 +54,9 @@ nc <- nc_vhis %>%
   rename(county = county_desc.x,
          precinct = precinct_desc,
          party_code = party_cd,
-         age = birth_age) %>%
-  mutate(election_lbl = to_date(election_lbl, "MM/DD/YYYY"),
-         registr_dt = to_date(registr_dt, "MM/DD/YYYY"))
+         age = birth_age) #%>%
+#  mutate(election_lbl = mdy(election_lbl),
+#         registr_dt = mdy(registr_dt))
 ```
 
 ```{r}

@@ -43,7 +43,6 @@ nc <- nc_vhis %>%
          age = birth_age)
 
 rm(nc_vhis, nc_voter)
-
 get_age <- function(year, age2016) {
   return(age2016 - 2016 + year)
 }
