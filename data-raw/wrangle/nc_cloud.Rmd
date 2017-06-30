@@ -26,8 +26,8 @@ nc_vhis <- nc_vhis %>%
   mutate(election_lbl = mdy(election_lbl)) %>%
   filter(year(election_lbl) %in% c(2016, 2014, 2012)) %>%
   group_by(election_desc) %>%
-  mutate(new_id = paste(voter_reg_num, ncid)) %>%
-  distinct(new_id, .keep_all = TRUE)
+  mutate(new_id = paste(voter_reg_num, ncid))# %>%
+#  distinct(new_id, .keep_all = TRUE)
 
 nc_voter <- nc_voter %>%
   filter(status_cd == "A") %>%
@@ -36,8 +36,8 @@ nc_voter <- nc_voter %>%
          race_code:birth_age,
          registr_dt:precinct_desc,
          ncid) %>%
-  mutate(new_id = paste(voter_reg_number, ncid)) %>%
-  distinct(new_id, .keep_all = TRUE)
+  mutate(new_id = paste(voter_reg_number, ncid))# %>%
+#  distinct(new_id, .keep_all = TRUE)
 
 nc <- nc_vhis %>%
   left_join(nc_voter, by = c("new_id")) %>%
