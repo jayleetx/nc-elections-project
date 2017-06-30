@@ -16,6 +16,7 @@ if(!dir.exists("temp")) {
   purl("../data-raw/wrangle/nc_cloud.Rmd", output = "temp/nc.R") %>% source()
   purl("../data-raw/wrangle/tidy_cces.Rmd", output = "temp/cces.R") %>% source()
 }
+
 ```
 
 ```{r cps}
