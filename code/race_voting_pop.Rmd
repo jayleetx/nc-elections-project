@@ -24,16 +24,6 @@ if(!dir.exists("temp")) {
 }
 ```
 
-```{r, nc server}
-my_db <- src_postgres("nc_elections",
-                      host = "ncelections.c7d0c8vzwwoc.us-west-2.rds.amazonaws.com", 
-                      port = 5432,
-                      user = "nc_elections",
-                      password = "nc_elections")
-nc_vhis <- tbl(my_db, "nc_vhis")
-nc_voter <- tbl(my_db, "nc_voter")
-```
-
 ```{r, tidy cps for viz}
 set.seed(42)
 cps$HISPAN <- as.factor(cps$HISPAN)
