@@ -24,16 +24,6 @@ if(!dir.exists("temp")) {
 }
 ```
 
-```{r, nc server}
-my_db <- src_postgres("nc_elections",
-                      host = "ncelections.c7d0c8vzwwoc.us-west-2.rds.amazonaws.com", 
-                      port = 5432,
-                      user = "nc_elections",
-                      password = "nc_elections")
-nc_vhis <- tbl(my_db, "nc_vhis")
-nc_voter <- tbl(my_db, "nc_voter")
-```
-
 ```{r, tidy cps for viz}
 set.seed(42)
 cps$HISPAN <- as.factor(cps$HISPAN)
@@ -81,7 +71,7 @@ cps_2012_viz <- cps_2012_viz %>%
 cps_2014_viz <- cps_2014_viz %>%
   mutate(source = "cps2014", race = RACE) %>%
   select(race, source, voted)
-rm(list = c("cps", "cps_2012", "cps_2014"))
+#rm(list = c("cps", "cps_2012", "cps_2014"))
 ```
 
 ```{r, tidy cces for viz}
@@ -126,10 +116,10 @@ cces_2016_viz <- sample_n(cces_2016, size = nrow(cces_2016),
 cces_2016_viz <- cces_2016_viz %>%
   mutate(source = "cces2016") %>%
   select(race, source, voted)
-rm(list = c("cces_2012", "cces_2014", "cces_2016"))
+# rm(list = c("cces_2012", "cces_2014", "cces_2016"))
 ```
 
-```{r, nc}
+```{r, nc eval = F}
 nc_race <- nc %>% ungroup() %>% 
   filter(!is.na(race_code), 
          race_code != "U",
